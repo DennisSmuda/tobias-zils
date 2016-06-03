@@ -3,7 +3,7 @@ nav {
   width: 100vw;
   height: 100vh;
   background-color: white;
-  opacity: 0.7;
+  opacity: 0.95;
   position: absolute;
   top: -100vh;
   left: 0;
@@ -13,6 +13,8 @@ nav {
   @include justify-content(center);
   @include align-items(center);
 
+
+
   @include transition(all 0.6s);
 
   &.active {
@@ -21,11 +23,19 @@ nav {
 
   a {
     color: rgba($coal, 0.4);
+    @include transition(all 0.6s);
 
     &:hover {
       color: $coal;
     }
   }
+}
+
+.nav__inner {
+  @include display(flex);
+  @include flex-direction(column);
+  @include justify-content(center);
+  @include align-items(center);
 }
 
 ul.primary {
@@ -35,10 +45,15 @@ ul.primary {
   font-size: 2rem;
 
 
+  li {
+    padding: 1rem;
+  }
+
 
 }
 
 ul.secondary {
+  padding: 1rem;
   list-style-type: none;
   @include display(flex);
   @include flex-direction(row);
