@@ -1,0 +1,7 @@
+site_homepage:
+    path:     /
+    defaults: { _controller: SiteBundle:Default:index }
+
+detail_page:
+    path:     /detail
+    defaults: { _controller: SiteBundle:Default:detailPage }
