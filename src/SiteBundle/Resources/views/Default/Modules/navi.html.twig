@@ -1,34 +1,15 @@
-<header>
-
-  <h2>Blub</h2>
+<nav>
 
 
-  {% include '@Site/Default/Modules/hamburger.html.twig' %}
-
-  <nav class="desktop">
-    <ul>
-      <li><a href="{{ path('site_homepage') }}">{% trans %}nav.home{% endtrans %}</a></li>
-      <li><a href="{{ path('detail_page') }}">{% trans %}nav.about{% endtrans %}</a></li>
-      <li><a href="#">{% trans %}nav.projects{% endtrans %}</a></li>
-      <li><a href="#">{% trans %}nav.contact{% endtrans %}</a></li>
+    <ul class="primary">
+      <li><a href="{{ path('site_homepage') }}">Album 1</a></li>
+      <li><a href="{{ path('detail_page') }}">Album 2</a></li>
     </ul>
-  </nav>
 
-  <div class="hamburger-container">
-    <div class="hamburger">
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-  </div>
+  <ul class="secondary">
+    <li><a href="#">Social</a></li>
+    <li><a href="#">Social</a></li>
+    <li><a href="#">Social</a></li>
+  </ul>
 
-  <nav class="mobile hidden">
-    <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">About</a></li>
-      <li><a href="#">Projects</a></li>
-      <li><a href="#">Contact</a></li>
-    </ul>
-  </nav>
-
-</header>
+</nav>

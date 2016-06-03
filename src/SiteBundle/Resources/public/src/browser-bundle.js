@@ -45,7 +45,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(1);
-	module.exports = __webpack_require__(2);
+	module.exports = __webpack_require__(3);
 
 
 /***/ },
@@ -54,16 +54,16 @@
 
 	'use strict';
 	
-	var _Hamburger = __webpack_require__(4);
+	var _Navigation = __webpack_require__(5);
 	
-	var _Hamburger2 = _interopRequireDefault(_Hamburger);
+	var _Navigation2 = _interopRequireDefault(_Navigation);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	$(document).ready(function () {
 	  console.log('Document ready');
 	
-	  var menu = new _Hamburger2.default();
+	  var menu = new _Navigation2.default();
 	
 	  var FadeTransition = Barba.BaseTransition.extend({
 	    start: function start() {
@@ -86,12 +86,9 @@
 	    },
 	
 	    fadeIn: function fadeIn() {
-	      /**
-	       * this.newContainer is the HTMLElement of the new Container
+	      /** this.newContainer is the HTMLElement of the new Container
 	       * At this stage newContainer is on the DOM (inside our #barba-container and with visibility: hidden)
-	       * Please note, newContainer is available just after newContainerLoading is resolved!
-	       */
-	
+	       * Please note, newContainer is available just after newContainerLoading is resolved! */
 	      var _this = this;
 	      var $el = $(this.newContainer);
 	
@@ -103,11 +100,9 @@
 	      });
 	
 	      $el.animate({ opacity: 1 }, 400, function () {
-	        /**
-	         * Do not forget to call .done() as soon your transition is finished!
-	         * .done() will automatically remove from the DOM the old Container
-	         */
-	
+	        /** Do not forget to call .done() as soon your transition is finished!
+	         * .done() will automatically remove from the DOM the old Container */
+	        menu.toggleMenu();
 	        _this.done();
 	      });
 	    }
@@ -121,14 +116,15 @@
 	});
 
 /***/ },
-/* 2 */
+/* 2 */,
+/* 3 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 3 */,
-/* 4 */
+/* 4 */,
+/* 5 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -145,6 +141,7 @@
 	var $middleLine = $('svg#hamburger #middle');
 	var $bottomLine = $('svg#hamburger #bottom');
 	var $svg = $('svg#hamburger');
+	var $nav = $('nav');
 	
 	// Control Variables
 	var isMenuActive = false;
@@ -153,35 +150,21 @@
 	  function Hamburger() {
 	    _classCallCheck(this, Hamburger);
 	
-	    $svg.on('mouseenter', this.mouseEnter);
-	    $svg.on('mouseleave', this.mouseLeave);
 	    $svg.on('click', this.onClick);
+	    $(document).keyup(function (e) {
+	      if (e.keyCode === 27) _toggleMenu();
+	    });
 	  }
 	
 	  _createClass(Hamburger, [{
-	    key: 'mouseEnter',
-	    value: function mouseEnter() {
-	      if (!isMenuActive) {
-	        $middleLine.addClass('transparent');
-	        $topLine.addClass('hover');
-	        $middleLine.addClass('hover');
-	      }
-	    }
-	  }, {
-	    key: 'mouseLeave',
-	    value: function mouseLeave() {
-	      if (!isMenuActive) {
-	        $middleLine.removeClass('transparent');
-	        $topLine.removeClass('hover');
-	        $middleLine.removeClass('hover');
-	      }
-	    }
-	  }, {
 	    key: 'onClick',
 	    value: function onClick() {
-	      isMenuActive = !isMenuActive;
-	      $topLine.toggleClass('active');
-	      $bottomLine.toggleClass('active');
+	      _toggleMenu();
+	    }
+	  }, {
+	    key: 'toggleMenu',
+	    value: function toggleMenu() {
+	      _toggleMenu();
 	    }
 	  }]);
 	
@@ -189,6 +172,16 @@
 	}();
 	
 	exports.default = Hamburger;
+	
+	
+	function _toggleMenu() {
+	  console.log('toggleMenu');
+	  isMenuActive = !isMenuActive;
+	  $topLine.toggleClass('active');
+	  $nav.toggleClass('active');
+	  $bottomLine.toggleClass('active');
+	  $middleLine.toggleClass('active');
+	}
 
 /***/ }
 /******/ ]);

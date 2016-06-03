@@ -1,28 +1,29 @@
 
 svg#hamburger {
   cursor: pointer;
+  fill: white;
   fill: #7B7B7B;
 }
 
 svg rect { transition: all 0.3s; }
 
-svg rect.transparent { fill: transparent; }
-
-svg rect#top.active {
-  transform: rotate(30deg);
-}
-
 svg rect#top    { transform-origin: 0 0;    }
 svg rect#bottom { transform-origin: 0 100%; }
 
-
-svg rect#bottom.active {
-  transform: rotate(-28deg);
-}
+svg rect#middle.active { fill: transparent;  }
+svg rect#bottom.active { transform: rotate(-28deg); }
+svg rect#top.active { transform: rotate(30deg); }
 
 // DOM Relevance
 .hamburger-container {
-  width: 50px;
-  height: 100%;
-  position: fixed;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 25px;  height: 100%;
+  z-index: 200;
+
+  -js-display: flex;
+  @include display(flex);
+  @include flex-direction(column);
+  @include justify-content(center);
 }

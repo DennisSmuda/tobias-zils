@@ -1,4 +1,4 @@
-import Hamburger from './modules/Hamburger';
+import Hamburger from './modules/Navigation';
 
 
 $(document).ready(function() {
@@ -30,12 +30,9 @@ $(document).ready(function() {
     },
 
     fadeIn: function() {
-      /**
-       * this.newContainer is the HTMLElement of the new Container
+      /** this.newContainer is the HTMLElement of the new Container
        * At this stage newContainer is on the DOM (inside our #barba-container and with visibility: hidden)
-       * Please note, newContainer is available just after newContainerLoading is resolved!
-       */
-
+       * Please note, newContainer is available just after newContainerLoading is resolved! */
       var _this = this;
       var $el = $(this.newContainer);
 
@@ -47,11 +44,9 @@ $(document).ready(function() {
       });
 
       $el.animate({ opacity: 1 }, 400, function() {
-        /**
-         * Do not forget to call .done() as soon your transition is finished!
-         * .done() will automatically remove from the DOM the old Container
-         */
-
+        /** Do not forget to call .done() as soon your transition is finished!
+         * .done() will automatically remove from the DOM the old Container */
+        menu.toggleMenu();
         _this.done();
       });
     }
