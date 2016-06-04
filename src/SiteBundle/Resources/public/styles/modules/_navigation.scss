@@ -35,7 +35,6 @@ nav {
   @include display(flex);
   @include flex-direction(column);
   @include justify-content(center);
-  @include align-items(center);
 }
 
 ul.primary {
@@ -43,6 +42,8 @@ ul.primary {
   @include display(flex);
   @include flex-direction(column);
   @include justify-content(center);
+  @include align-items(center);
+
   font-size: 2rem;
 
   li {

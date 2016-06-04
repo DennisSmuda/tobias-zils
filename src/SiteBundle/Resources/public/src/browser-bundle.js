@@ -255,10 +255,13 @@
 	var apiKey = '1418194638ebca1a4c43c2e3d2795d39';
 	var userId = '24527918@N07';
 	
-	var streetId = '72157647569796794';
-	var landscapeId = '72157654896797852';
-	var peopleId = '72157651326724346';
+	var albumIds = {
+	  "streetId": '72157647569796794',
+	  "landscapesId": '72157654896797852',
+	  "peopleId": '72157651326724346'
+	};
 	
+	// Image URL
 	// https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{o-secret}_o.(jpg|gif|png)
 	
 	var Gallery = function () {
@@ -272,37 +275,17 @@
 	  }
 	
 	  _createClass(Gallery, [{
-	    key: 'getPeople',
-	    value: function getPeople() {
+	    key: 'getAlbum',
+	    value: function getAlbum(albumName) {
+	      var idstring = albumName + 'Id';
+	      var id = albumIds[idstring];
+	
 	      this.flickr.photosets.getPhotos({
 	        api_key: this.flickr.flickrOptions.api_key,
 	        user_id: this.flickr.flickrOptions.user_id,
 	        page: 1,
 	        per_page: 500,
-	        photoset_id: peopleId
-	
-	      }, function (err, result) {
-	        if (err) {
-	          throw new Error(err);
-	        }
-	
-	        var photos = result.photoset.photo;
-	        // Output all Photos on screen
-	        photos.forEach(function (photo, i) {
-	          var photoUrl = '<img src="http://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_c.jpg">';
-	          $(photoUrl).appendTo('#images');
-	        });
-	      });
-	    }
-	  }, {
-	    key: 'getLandscape',
-	    value: function getLandscape() {
-	      this.flickr.photosets.getPhotos({
-	        api_key: this.flickr.flickrOptions.api_key,
-	        user_id: this.flickr.flickrOptions.user_id,
-	        page: 1,
-	        per_page: 500,
-	        photoset_id: landscapeId
+	        photoset_id: id
 	
 	      }, function (err, result) {
 	        if (err) {
@@ -319,39 +302,14 @@
 	      });
 	    }
 	  }, {
-	    key: 'getStreet',
-	    value: function getStreet() {
-	      this.flickr.photosets.getPhotos({
-	        api_key: this.flickr.flickrOptions.api_key,
-	        user_id: this.flickr.flickrOptions.user_id,
-	        page: 1,
-	        per_page: 500,
-	        photoset_id: streetId
-	
-	      }, function (err, result) {
-	        if (err) {
-	          throw new Error(err);
-	        }
-	
-	        var photos = result.photoset.photo;
-	        photos.forEach(function (photo, i) {
-	          console.log(photo);
-	
-	          var photoUrl = '<img src="http://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_c.jpg">';
-	          $(photoUrl).appendTo('#images');
-	        });
-	      });
-	    }
-	  }, {
 	    key: 'update',
 	    value: function update($el) {
-	      console.log($el);
 	      if ($el.hasClass('street')) {
-	        this.getStreet();
+	        this.getAlbum('street');
 	      } else if ($el.hasClass('landscapes')) {
-	        this.getLandscape();
+	        this.getAlbum('landscapes');
 	      } else if ($el.hasClass('people')) {
-	        this.getPeople();
+	        this.getAlbum('people');
 	      }
 	    }
 	  }]);

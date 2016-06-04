@@ -14,8 +14,17 @@ main.photo-album {
     margin: 2rem;
     border: 5px solid white;
     width: auto;
-    height: 450px;
+    height: 350px;
     box-shadow: 0 0 12px 6px rgba($coal, 0.05);
+    @include transition(all 0.6s);
+
+    @include max-screen($desktop) { height: 300px; }
+    @include max-screen($tablet-wide) { height: 250px; }
+    @include max-screen($tablet-small) { height: 200px; }
+
+    &:hover {
+      transform: scale(1.05);
+    }
   }
 
 }
