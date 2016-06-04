@@ -9,13 +9,14 @@ let isMenuActive = false;
 
 
 
-export default class Hamburger {
+export default class Navigation {
 
   constructor() {
     $svg.on('click', this.onClick);
     $(document).keyup(function(e) {
       if (e.keyCode === 27) toggleMenu();
     });
+
   }
 
 
@@ -26,13 +27,21 @@ export default class Hamburger {
   toggleMenu() {
     toggleMenu();
   }
+
+  isActive() {
+    return isMenuActive;
+  }
 }
 
 function toggleMenu() {
-  console.log('toggleMenu');
   isMenuActive = !isMenuActive;
   $topLine.toggleClass('active');
-  $nav.toggleClass('active');
+
+  if (isMenuActive) {
+    TweenMax.to($nav, 0.6, { top: 0 ,autoAlpha: 1, ease: Elastic.easeInOut});
+  } else {
+    TweenMax.to($nav, 0.6, { top: -window.innerHeight, autoAlpha: 0.1 });
+  }
   $bottomLine.toggleClass('active');
   $middleLine.toggleClass('active');
 }

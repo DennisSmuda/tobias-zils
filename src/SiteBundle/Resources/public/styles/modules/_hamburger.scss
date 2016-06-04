@@ -1,8 +1,11 @@
 
 svg#hamburger {
   cursor: pointer;
-  fill: white;
   fill: #7B7B7B;
+
+  &:hover {
+    fill: #3f3f3f;
+  }
 }
 
 svg rect { transition: all 0.3s; }
@@ -18,8 +21,9 @@ svg rect#top.active { transform: rotate(30deg); }
 .hamburger-container {
   position: fixed;
   top: 0;
-  left: 0;
-  width: 25px;  height: 100%;
+  left: 10px;
+  width: 25px;
+  height: 100%;
   z-index: 200;
 
   -js-display: flex;

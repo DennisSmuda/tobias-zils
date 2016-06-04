@@ -54,77 +54,63 @@
 
 	'use strict';
 	
-	var _Navigation = __webpack_require__(5);
+	var _Navigation = __webpack_require__(2);
 	
 	var _Navigation2 = _interopRequireDefault(_Navigation);
+	
+	var _BarbaWrapper = __webpack_require__(5);
+	
+	var _BarbaWrapper2 = _interopRequireDefault(_BarbaWrapper);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	$(document).ready(function () {
-	  console.log('Document ready');
 	
-	  var menu = new _Navigation2.default();
+	  /**
+	   * Initializes Hamburger + Mainmenu
+	   * with Event Listeners */
+	  var navi = new _Navigation2.default();
+	  var barba = new _BarbaWrapper2.default(navi);
 	
-	  var FadeTransition = Barba.BaseTransition.extend({
-	    start: function start() {
-	      /**
-	       * This function is automatically called as soon the Transition starts
-	       * this.newContainerLoading is a Promise for the loading of the new container
-	       * (Barba.js also comes with an handy Promise polyfill!)
-	       */
+	  showpics();
+	});
 	
-	      // As soon the loading is finished and the old page is faded out, let's fade the new page
-	      Promise.all([this.newContainerLoading, this.fadeOut()]).then(this.fadeIn.bind(this));
-	    },
+	var apiKey = '1418194638ebca1a4c43c2e3d2795d39';
+	var userId = '24527918@N07';
 	
-	    fadeOut: function fadeOut() {
-	      /**
-	       * this.oldContainer is the HTMLElement of the old Container
-	       */
+	function showpics() {
 	
-	      return $(this.oldContainer).animate({ opacity: 0 }).promise();
-	    },
-	
-	    fadeIn: function fadeIn() {
-	      /** this.newContainer is the HTMLElement of the new Container
-	       * At this stage newContainer is on the DOM (inside our #barba-container and with visibility: hidden)
-	       * Please note, newContainer is available just after newContainerLoading is resolved! */
-	      var _this = this;
-	      var $el = $(this.newContainer);
-	
-	      $(this.oldContainer).hide();
-	
-	      $el.css({
-	        visibility: 'visible',
-	        opacity: 0
-	      });
-	
-	      $el.animate({ opacity: 1 }, 400, function () {
-	        /** Do not forget to call .done() as soon your transition is finished!
-	         * .done() will automatically remove from the DOM the old Container */
-	        menu.toggleMenu();
-	        _this.done();
-	      });
-	    }
+	  var flickr = new Flickr({
+	    api_key: apiKey,
+	    user_id: userId
 	  });
 	
-	  Barba.Pjax.getTransition = function () {
-	    return FadeTransition;
-	  };
+	  flickr.photos.search({
+	    text: "red+panda"
+	  }, function (err, result) {
+	    if (err) {
+	      throw new Error(err);
+	    }
+	    // do something with result
+	    console.log(result);
+	  });
 	
-	  Barba.Pjax.start();
-	});
+	  flickr.photos.search({
+	    user_id: flickr.flickrOptions.user_id,
+	    page: 1,
+	    per_page: 500
+	  }, function (err, result) {
+	    if (err) {
+	      throw new Error(err);
+	    }
+	    console.log(result);
+	  });
+	
+	  console.log(flickr);
+	};
 
 /***/ },
-/* 2 */,
-/* 3 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 4 */,
-/* 5 */
+/* 2 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -146,9 +132,9 @@
 	// Control Variables
 	var isMenuActive = false;
 	
-	var Hamburger = function () {
-	  function Hamburger() {
-	    _classCallCheck(this, Hamburger);
+	var Navigation = function () {
+	  function Navigation() {
+	    _classCallCheck(this, Navigation);
 	
 	    $svg.on('click', this.onClick);
 	    $(document).keyup(function (e) {
@@ -156,7 +142,7 @@
 	    });
 	  }
 	
-	  _createClass(Hamburger, [{
+	  _createClass(Navigation, [{
 	    key: 'onClick',
 	    value: function onClick() {
 	      _toggleMenu();
@@ -166,22 +152,111 @@
 	    value: function toggleMenu() {
 	      _toggleMenu();
 	    }
+	  }, {
+	    key: 'isActive',
+	    value: function isActive() {
+	      return isMenuActive;
+	    }
 	  }]);
 	
-	  return Hamburger;
+	  return Navigation;
 	}();
 	
-	exports.default = Hamburger;
+	exports.default = Navigation;
 	
 	
 	function _toggleMenu() {
-	  console.log('toggleMenu');
 	  isMenuActive = !isMenuActive;
 	  $topLine.toggleClass('active');
-	  $nav.toggleClass('active');
+	
+	  if (isMenuActive) {
+	    TweenMax.to($nav, 0.6, { top: 0, autoAlpha: 1, ease: Elastic.easeInOut });
+	  } else {
+	    TweenMax.to($nav, 0.6, { top: -window.innerHeight, autoAlpha: 0.1 });
+	  }
 	  $bottomLine.toggleClass('active');
 	  $middleLine.toggleClass('active');
 	}
+
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ },
+/* 4 */,
+/* 5 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var BarbaWrapper = function () {
+	  function BarbaWrapper(menu) {
+	    _classCallCheck(this, BarbaWrapper);
+	
+	    this.menu = menu;
+	    this.setupTransition();
+	
+	    console.log(this.menu.isActive());
+	  }
+	
+	  _createClass(BarbaWrapper, [{
+	    key: 'setupTransition',
+	    value: function setupTransition() {
+	
+	      var FadeTransition = Barba.BaseTransition.extend({
+	        menu: this.menu,
+	
+	        start: function start() {
+	          // As soon the loading is finished and the old page is faded out, let's fade the new page
+	          Promise.all([this.newContainerLoading, this.fadeOut()]).then(this.fadeIn.bind(this));
+	        },
+	
+	        fadeOut: function fadeOut() {
+	          return $(this.oldContainer).animate({ opacity: 0 }).promise();
+	        },
+	
+	        fadeIn: function fadeIn() {
+	          var _this = this;
+	          var $el = $(this.newContainer);
+	
+	          $(this.oldContainer).hide();
+	
+	          $el.css({
+	            visibility: 'visible',
+	            opacity: 0
+	          });
+	
+	          $el.animate({ opacity: 1 }, 400, function () {
+	            if (_this.menu.isActive()) {
+	              _this.menu.toggleMenu();
+	            }
+	            _this.done();
+	          });
+	        }
+	      });
+	
+	      Barba.Pjax.getTransition = function () {
+	        return FadeTransition;
+	      };
+	
+	      Barba.Pjax.start();
+	    }
+	  }]);
+	
+	  return BarbaWrapper;
+	}();
+	
+	exports.default = BarbaWrapper;
 
 /***/ }
 /******/ ]);

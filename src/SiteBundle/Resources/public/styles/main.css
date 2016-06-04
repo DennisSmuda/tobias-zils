@@ -55,9 +55,13 @@ html {
 main.photo-album {
   text-align: center;
   margin: 4rem; }
+  main.photo-album h1 {
+    padding: 1rem;
+    color: #3C3B3D; }
   main.photo-album img {
     border: 5px solid white;
     max-width: 750px;
+    width: 80%;
     box-shadow: 0 0 12px 6px rgba(60, 59, 61, 0.05); }
 
 /**=======================**/
@@ -67,8 +71,7 @@ nav {
   width: 100vw;
   height: 100vh;
   background-color: white;
-  opacity: 0.95;
-  position: absolute;
+  position: fixed;
   top: -100vh;
   left: 0;
   z-index: 100;
@@ -206,8 +209,9 @@ ul.secondary {
 
 svg#hamburger {
   cursor: pointer;
-  fill: white;
   fill: #7B7B7B; }
+  svg#hamburger:hover {
+    fill: #3f3f3f; }
 
 svg rect {
   transition: all 0.3s; }
@@ -230,7 +234,7 @@ svg rect#top.active {
 .hamburger-container {
   position: fixed;
   top: 0;
-  left: 0;
+  left: 10px;
   width: 25px;
   height: 100%;
   z-index: 200;
