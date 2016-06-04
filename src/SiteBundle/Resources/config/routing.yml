@@ -1,7 +1,19 @@
 site_homepage:
     path:     /
-    defaults: { _controller: SiteBundle:Default:index }
+    defaults: { _controller: SiteBundle:Default:street }
+
+street_page:
+    path: /street
+    defaults: { _controller: SiteBundle:Default:street }
+
+landscapes_page:
+    path: /landscapes
+    defaults: { _controller: SiteBundle:Default:landscapes }
 
 detail_page:
     path:     /detail
     defaults: { _controller: SiteBundle:Default:detailPage }
+
+people_page:
+    path:     /people
+    defaults: { _controller: SiteBundle:Default:people }

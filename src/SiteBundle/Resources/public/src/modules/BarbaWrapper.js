@@ -1,7 +1,8 @@
 
 export default class BarbaWrapper {
-  constructor(menu) {
+  constructor(menu, gallery) {
     this.menu = menu;
+    this.gallery = gallery;
     this.setupTransition();
   }
 
@@ -9,6 +10,7 @@ export default class BarbaWrapper {
 
     var FadeTransition = Barba.BaseTransition.extend({
       menu : this.menu,
+      gallery: this.gallery,
 
       start: function() {
           // As soon the loading is finished and the old page is faded out, let's fade the new page
@@ -43,6 +45,8 @@ export default class BarbaWrapper {
         function animationCallback() {
           if (_this.menu.isActive()) {
             _this.menu.toggleMenu();
+            _this.gallery.update($el);
+
           }
           _this.done();
         }

@@ -62,6 +62,10 @@
 	
 	var _BarbaWrapper2 = _interopRequireDefault(_BarbaWrapper);
 	
+	var _Gallery = __webpack_require__(6);
+	
+	var _Gallery2 = _interopRequireDefault(_Gallery);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	$(document).ready(function () {
@@ -69,61 +73,14 @@
 	  /**
 	   * Initializes Hamburger + Mainmenu
 	   * with Event Listeners */
+	  var galleryContainer = $('.barba-container');
 	  var navi = new _Navigation2.default();
-	  var barba = new _BarbaWrapper2.default(navi);
-	
-	  showpics();
+	  var gallery = new _Gallery2.default();
+	  var barba = new _BarbaWrapper2.default(navi, gallery);
+	  gallery.update(galleryContainer);
 	
 	  //debug();
 	});
-	
-	var apiKey = '1418194638ebca1a4c43c2e3d2795d39';
-	var userId = '24527918@N07';
-	
-	var streetId = '72157647569796794';
-	var landscapeId = '72157654896797852';
-	
-	function showpics() {
-	
-	  var flickr = new Flickr({
-	    api_key: apiKey,
-	    user_id: userId
-	  });
-	
-	  flickr.photosets.getPhotos({
-	    api_key: flickr.flickrOptions.api_key,
-	    user_id: flickr.flickrOptions.user_id,
-	    page: 1,
-	    per_page: 500,
-	    photoset_id: landscapeId
-	
-	  }, function (err, result) {
-	    if (err) {
-	      throw new Error(err);
-	    }
-	
-	    console.log(result);
-	  });
-	
-	  //flickr.galleries.getList({
-	  //  api_key: flickr.flickrOptions.api_key,
-	  //  user_id: flickr.flickrOptions.user_id,
-	  //  authenticated: true,
-	  //
-	  //  gallery_id: streetId
-	  //}, function(err, result) {
-	  //  if (err) {throw new Error(err)};
-	  //  console.log(result);
-	  //});
-	};
-	
-	function debug() {
-	  var $box = $('.debug-box');
-	  TweenLite.fromTo($box, 2, { x: '0px' }, {
-	    x: 150,
-	    ease: Power4.easeInOut
-	  });
-	}
 
 /***/ },
 /* 2 */
@@ -216,10 +173,11 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	var BarbaWrapper = function () {
-	  function BarbaWrapper(menu) {
+	  function BarbaWrapper(menu, gallery) {
 	    _classCallCheck(this, BarbaWrapper);
 	
 	    this.menu = menu;
+	    this.gallery = gallery;
 	    this.setupTransition();
 	  }
 	
@@ -229,6 +187,7 @@
 	
 	      var FadeTransition = Barba.BaseTransition.extend({
 	        menu: this.menu,
+	        gallery: this.gallery,
 	
 	        start: function start() {
 	          // As soon the loading is finished and the old page is faded out, let's fade the new page
@@ -259,6 +218,7 @@
 	          function animationCallback() {
 	            if (_this.menu.isActive()) {
 	              _this.menu.toggleMenu();
+	              _this.gallery.update($el);
 	            }
 	            _this.done();
 	          }
@@ -277,6 +237,129 @@
 	}();
 	
 	exports.default = BarbaWrapper;
+
+/***/ },
+/* 6 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var apiKey = '1418194638ebca1a4c43c2e3d2795d39';
+	var userId = '24527918@N07';
+	
+	var streetId = '72157647569796794';
+	var landscapeId = '72157654896797852';
+	var peopleId = '72157651326724346';
+	
+	// https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{o-secret}_o.(jpg|gif|png)
+	
+	var Gallery = function () {
+	  function Gallery() {
+	    _classCallCheck(this, Gallery);
+	
+	    this.flickr = new Flickr({
+	      api_key: apiKey,
+	      user_id: userId
+	    });
+	  }
+	
+	  _createClass(Gallery, [{
+	    key: 'getPeople',
+	    value: function getPeople() {
+	      this.flickr.photosets.getPhotos({
+	        api_key: this.flickr.flickrOptions.api_key,
+	        user_id: this.flickr.flickrOptions.user_id,
+	        page: 1,
+	        per_page: 500,
+	        photoset_id: peopleId
+	
+	      }, function (err, result) {
+	        if (err) {
+	          throw new Error(err);
+	        }
+	
+	        var photos = result.photoset.photo;
+	        // Output all Photos on screen
+	        photos.forEach(function (photo, i) {
+	          var photoUrl = '<img src="http://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_c.jpg">';
+	          $(photoUrl).appendTo('#images');
+	        });
+	      });
+	    }
+	  }, {
+	    key: 'getLandscape',
+	    value: function getLandscape() {
+	      this.flickr.photosets.getPhotos({
+	        api_key: this.flickr.flickrOptions.api_key,
+	        user_id: this.flickr.flickrOptions.user_id,
+	        page: 1,
+	        per_page: 500,
+	        photoset_id: landscapeId
+	
+	      }, function (err, result) {
+	        if (err) {
+	          throw new Error(err);
+	        }
+	
+	        var photos = result.photoset.photo;
+	
+	        photos.forEach(function (photo, i) {
+	          // Render to dom
+	          var photoUrl = '<img src="http://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_c.jpg">';
+	          $(photoUrl).appendTo('#images');
+	        });
+	      });
+	    }
+	  }, {
+	    key: 'getStreet',
+	    value: function getStreet() {
+	      this.flickr.photosets.getPhotos({
+	        api_key: this.flickr.flickrOptions.api_key,
+	        user_id: this.flickr.flickrOptions.user_id,
+	        page: 1,
+	        per_page: 500,
+	        photoset_id: streetId
+	
+	      }, function (err, result) {
+	        if (err) {
+	          throw new Error(err);
+	        }
+	
+	        var photos = result.photoset.photo;
+	        photos.forEach(function (photo, i) {
+	          console.log(photo);
+	
+	          var photoUrl = '<img src="http://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_c.jpg">';
+	          $(photoUrl).appendTo('#images');
+	        });
+	      });
+	    }
+	  }, {
+	    key: 'update',
+	    value: function update($el) {
+	      console.log($el);
+	      if ($el.hasClass('street')) {
+	        this.getStreet();
+	      } else if ($el.hasClass('landscapes')) {
+	        this.getLandscape();
+	      } else if ($el.hasClass('people')) {
+	        this.getPeople();
+	      }
+	    }
+	  }]);
+	
+	  return Gallery;
+	}();
+	
+	exports.default = Gallery;
 
 /***/ }
 /******/ ]);

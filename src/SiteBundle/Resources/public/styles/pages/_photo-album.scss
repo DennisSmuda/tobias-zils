@@ -3,16 +3,27 @@ main.photo-album {
   text-align: center;
   margin: 4rem;
 
+
+
   h1 {
     padding: 1rem;
     color: $coal;
   }
 
   img {
+    margin: 2rem;
     border: 5px solid white;
-    max-width: 750px;
-    width: 80%;
+    width: auto;
+    height: 450px;
     box-shadow: 0 0 12px 6px rgba($coal, 0.05);
   }
 
+}
+
+
+main.photo-album #images {
+  @include display(flex);
+  @include flex-direction(row);
+  @include flex-wrap(wrap);
+  @include justify-content(center);
 }
