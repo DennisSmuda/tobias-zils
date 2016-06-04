@@ -16,21 +16,13 @@ export default class Navigation {
     $(document).keyup(function(e) {
       if (e.keyCode === 27) toggleMenu();
     });
-
   }
 
+  onClick() { toggleMenu(); }
 
-  onClick() {
-    toggleMenu();
-  }
+  toggleMenu() { toggleMenu(); }
 
-  toggleMenu() {
-    toggleMenu();
-  }
-
-  isActive() {
-    return isMenuActive;
-  }
+  isActive() { return isMenuActive; }
 }
 
 function toggleMenu() {
@@ -38,9 +30,9 @@ function toggleMenu() {
   $topLine.toggleClass('active');
 
   if (isMenuActive) {
-    TweenMax.to($nav, 0.6, { top: 0 ,autoAlpha: 1, ease: Elastic.easeInOut});
+    TweenMax.to($nav, 1, {autoAlpha: 1, y: 0, ease: Expo.easeOut});
   } else {
-    TweenMax.to($nav, 0.6, { top: -window.innerHeight, autoAlpha: 0.1 });
+    TweenMax.to($nav, 1, {autoAlpha: 0.1, y: -window.innerHeight, ease: Expo.easeOut});
   }
   $bottomLine.toggleClass('active');
   $middleLine.toggleClass('active');

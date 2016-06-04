@@ -73,10 +73,15 @@
 	  var barba = new _BarbaWrapper2.default(navi);
 	
 	  showpics();
+	
+	  //debug();
 	});
 	
 	var apiKey = '1418194638ebca1a4c43c2e3d2795d39';
 	var userId = '24527918@N07';
+	
+	var streetId = '72157647569796794';
+	var landscapeId = '72157654896797852';
 	
 	function showpics() {
 	
@@ -85,29 +90,40 @@
 	    user_id: userId
 	  });
 	
-	  flickr.photos.search({
-	    text: "red+panda"
-	  }, function (err, result) {
-	    if (err) {
-	      throw new Error(err);
-	    }
-	    // do something with result
-	    console.log(result);
-	  });
-	
-	  flickr.photos.search({
+	  flickr.photosets.getPhotos({
+	    api_key: flickr.flickrOptions.api_key,
 	    user_id: flickr.flickrOptions.user_id,
 	    page: 1,
-	    per_page: 500
+	    per_page: 500,
+	    photoset_id: landscapeId
+	
 	  }, function (err, result) {
 	    if (err) {
 	      throw new Error(err);
 	    }
+	
 	    console.log(result);
 	  });
 	
-	  console.log(flickr);
+	  //flickr.galleries.getList({
+	  //  api_key: flickr.flickrOptions.api_key,
+	  //  user_id: flickr.flickrOptions.user_id,
+	  //  authenticated: true,
+	  //
+	  //  gallery_id: streetId
+	  //}, function(err, result) {
+	  //  if (err) {throw new Error(err)};
+	  //  console.log(result);
+	  //});
 	};
+	
+	function debug() {
+	  var $box = $('.debug-box');
+	  TweenLite.fromTo($box, 2, { x: '0px' }, {
+	    x: 150,
+	    ease: Power4.easeInOut
+	  });
+	}
 
 /***/ },
 /* 2 */
@@ -170,9 +186,9 @@
 	  $topLine.toggleClass('active');
 	
 	  if (isMenuActive) {
-	    TweenMax.to($nav, 0.6, { top: 0, autoAlpha: 1, ease: Elastic.easeInOut });
+	    TweenMax.to($nav, 1, { autoAlpha: 1, y: 0, ease: Expo.easeOut });
 	  } else {
-	    TweenMax.to($nav, 0.6, { top: -window.innerHeight, autoAlpha: 0.1 });
+	    TweenMax.to($nav, 1, { autoAlpha: 0.1, y: -window.innerHeight, ease: Expo.easeOut });
 	  }
 	  $bottomLine.toggleClass('active');
 	  $middleLine.toggleClass('active');

@@ -72,8 +72,9 @@ nav {
   height: 100vh;
   background-color: white;
   position: fixed;
-  top: -100vh;
+  top: 0;
   left: 0;
+  right: 0;
   z-index: 100;
   display: -webkit-box;
   display: -moz-box;
@@ -110,9 +111,7 @@ nav {
   -o-align-items: center;
   align-items: center;
   -ms-flex-align: center;
-  -webkit-transition: all 0.6s;
-  -moz-transition: all 0.6s;
-  transition: all 0.6s; }
+  transform: translateY(-100vh); }
   nav.active {
     top: 0; }
   nav a {
@@ -265,5 +264,12 @@ svg rect#top.active {
   -o-justify-content: center;
   justify-content: center;
   -ms-flex-pack: center; }
+
+.debug-box {
+  width: 50px;
+  height: 50px;
+  background-color: #F6BB42;
+  position: absolute;
+  top: 1rem; }
 
 /*# sourceMappingURL=main.css.map*/

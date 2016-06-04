@@ -5,17 +5,17 @@ nav {
   background-color: white;
   //opacity: 0.95;
   position: fixed;
-  top: -100vh;
+  top: 0;
   left: 0;
+  right: 0;
   z-index: 100;
   @include display(flex);
   @include flex-direction(column);
   @include justify-content(center);
   @include align-items(center);
 
+  transform: translateY(-100vh);
 
-
-  @include transition(all 0.6s);
 
   &.active {
     top: 0;
