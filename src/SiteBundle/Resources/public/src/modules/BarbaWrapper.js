@@ -3,8 +3,6 @@ export default class BarbaWrapper {
   constructor(menu) {
     this.menu = menu;
     this.setupTransition();
-
-    console.log(this.menu.isActive());
   }
 
   setupTransition() {
@@ -35,12 +33,19 @@ export default class BarbaWrapper {
           opacity : 0
         });
 
-        $el.animate({ opacity: 1 }, 400, function() {
+        // Tween Max instead of jquery animate
+        TweenMax.to($el, 0.4, {
+          opacity: 1,
+          onComplete: animationCallback
+        });
+
+
+        function animationCallback() {
           if (_this.menu.isActive()) {
             _this.menu.toggleMenu();
           }
           _this.done();
-        });
+        }
       }
     });
 
