@@ -77,6 +77,7 @@
 	  var navi = new _Navigation2.default();
 	  var gallery = new _Gallery2.default();
 	  var barba = new _BarbaWrapper2.default(navi, gallery);
+	  gallery.getTitleImages();
 	  gallery.update(galleryContainer);
 	
 	  //debug();
@@ -311,6 +312,28 @@
 	      } else if ($el.hasClass('people')) {
 	        this.getAlbum('people');
 	      }
+	    }
+	  }, {
+	    key: 'getTitleImages',
+	    value: function getTitleImages() {
+	
+	      this.flickr.photos.search({
+	        api_key: this.flickr.flickrOptions.api_key,
+	        tags: 'tobias-zils-title'
+	      }, function (err, result) {
+	        if (err) {
+	          throw new Error(err);
+	        }
+	
+	        var titleImages = result.photos.photo;
+	
+	        titleImages.forEach(function (photo, i) {
+	          console.log(photo);
+	          // Render to dom
+	          var photoUrl = '<img src="http://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_c.jpg">';
+	          $(photoUrl).appendTo('ul.primary li:nth-child(' + ++i + ') a');
+	        });
+	      });
 	    }
 	  }]);
 	

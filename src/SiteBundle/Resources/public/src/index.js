@@ -11,6 +11,7 @@ $(document).ready(function () {
   const navi = new Navigation();
   let gallery = new Gallery();
   let barba = new BarbaWrapper(navi, gallery);
+  gallery.getTitleImages();
   gallery.update(galleryContainer);
 
 

@@ -56,9 +56,26 @@ export default class Gallery {
     }
   }
 
+  getTitleImages() {
+
+    this.flickr.photos.search({
+      api_key: this.flickr.flickrOptions.api_key,
+      tags: 'tobias-zils-title'
+    }, function(err, result) {
+      if(err) { throw new Error(err); }
+
+      const titleImages = result.photos.photo;
+
+      titleImages.forEach((photo, i) => {
+        console.log(photo);
+        // Render to dom
+        let photoUrl = `<img src="http://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_c.jpg">`;
+        $(photoUrl).appendTo(`ul.primary li:nth-child(${++i}) a`);
+      });
+    });
+  }
+
 }
-
-
 
 
 
