@@ -44,7 +44,7 @@ nav {
 ul.primary {
   list-style-type: none;
   @include display(flex);
-  @include flex-direction(column);
+  @include flex-direction(row);
   @include justify-content(center);
   @include align-items(center);
 
@@ -52,6 +52,15 @@ ul.primary {
 
   li {
     padding: 1rem;
+  }
+  
+  a {
+    text-decoration: none;
+    text-transform: uppercase;
+
+    &:hover {
+      transform: scale(1.05);
+    }
   }
 }
 
@@ -61,8 +70,22 @@ ul.secondary {
   @include display(flex);
   @include flex-direction(row);
   font-size: 1.5rem;
+  display: none;
 
   li {
     padding: 1rem;
   }
+}
+
+
+ul.primary li .title-image {
+  width : 30vw;
+  height: 50vh;
+  background-size: cover;
+
+  color: white;
+  @include display(flex);
+  @include flex-direction(column);
+  @include justify-content(center);
+  @include align-items(center);
 }

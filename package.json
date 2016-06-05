@@ -9,6 +9,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack -w",
+    "build-prod": "webpack --optimize-minimize",
     "server": "php bin/console server:run",
     "start": "npm run server | npm run build"
   },

@@ -45,7 +45,7 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(1);
-	module.exports = __webpack_require__(3);
+	module.exports = __webpack_require__(5);
 
 
 /***/ },
@@ -58,11 +58,11 @@
 	
 	var _Navigation2 = _interopRequireDefault(_Navigation);
 	
-	var _BarbaWrapper = __webpack_require__(5);
+	var _BarbaWrapper = __webpack_require__(3);
 	
 	var _BarbaWrapper2 = _interopRequireDefault(_BarbaWrapper);
 	
-	var _Gallery = __webpack_require__(6);
+	var _Gallery = __webpack_require__(4);
 	
 	var _Gallery2 = _interopRequireDefault(_Gallery);
 	
@@ -77,7 +77,7 @@
 	  var navi = new _Navigation2.default();
 	  var gallery = new _Gallery2.default();
 	  var barba = new _BarbaWrapper2.default(navi, gallery);
-	  gallery.getTitleImages();
+	  gallery.setupTitleImages();
 	  gallery.update(galleryContainer);
 	
 	  //debug();
@@ -154,13 +154,6 @@
 
 /***/ },
 /* 3 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 4 */,
-/* 5 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -240,7 +233,7 @@
 	exports.default = BarbaWrapper;
 
 /***/ },
-/* 6 */
+/* 4 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -255,6 +248,8 @@
 	
 	var apiKey = '1418194638ebca1a4c43c2e3d2795d39';
 	var userId = '24527918@N07';
+	
+	var albumNames = ['street', 'landscapes', 'people'];
 	
 	var albumIds = {
 	  "streetId": '72157647569796794',
@@ -286,6 +281,7 @@
 	        user_id: this.flickr.flickrOptions.user_id,
 	        page: 1,
 	        per_page: 500,
+	        extras: ['tags'],
 	        photoset_id: id
 	
 	      }, function (err, result) {
@@ -314,12 +310,21 @@
 	      }
 	    }
 	  }, {
-	    key: 'getTitleImages',
-	    value: function getTitleImages() {
+	    key: 'setupTitleImages',
+	    value: function setupTitleImages() {
+	      var _this = this;
 	
+	      albumNames.forEach(function (album) {
+	        _this.getTitleImage(album);
+	      });
+	    }
+	  }, {
+	    key: 'getTitleImage',
+	    value: function getTitleImage(albumname) {
 	      this.flickr.photos.search({
 	        api_key: this.flickr.flickrOptions.api_key,
-	        tags: 'tobias-zils-title'
+	        tags: ['tobias-zils-title', '' + albumname],
+	        tag_mode: 'all'
 	      }, function (err, result) {
 	        if (err) {
 	          throw new Error(err);
@@ -328,10 +333,10 @@
 	        var titleImages = result.photos.photo;
 	
 	        titleImages.forEach(function (photo, i) {
-	          console.log(photo);
-	          // Render to dom
-	          var photoUrl = '<img src="http://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_c.jpg">';
-	          $(photoUrl).appendTo('ul.primary li:nth-child(' + ++i + ') a');
+	          // Construct DOM Node
+	          var imageSrc = 'http://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_c.jpg';
+	          var titleImage = '<div class="title-image" style="background-image: url(\'' + imageSrc + '\');">' + albumname + '</div>';
+	          $(titleImage).appendTo('ul.primary li a#' + albumname);
 	        });
 	      });
 	    }
@@ -341,6 +346,12 @@
 	}();
 	
 	exports.default = Gallery;
+
+/***/ },
+/* 5 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
 
 /***/ }
 /******/ ]);
