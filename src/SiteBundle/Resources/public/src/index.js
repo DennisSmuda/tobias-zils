@@ -61,14 +61,16 @@ function debug() {
   }
 
   function slideDone() {
-    console.log(activeId);
 
   }
 
   function updateDirections() {
     swipeDir = this.getDirection("start");
-    console.log(swipeDir);
   }
+
+  $navigationItem.on('click', (e) => {
+    console.log(e.target.innerText.toLowerCase());
+  });
 
   $navigationItem.mousedown(function(e) {
     activeId = $(this).attr('id').split('_')[1];

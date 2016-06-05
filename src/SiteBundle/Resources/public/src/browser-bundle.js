@@ -124,14 +124,15 @@
 	    TweenMax.to($navigationItems, slideSpeed, { x: xTarget, ease: easing, onComplete: slideDone });
 	  }
 	
-	  function slideDone() {
-	    console.log(activeId);
-	  }
+	  function slideDone() {}
 	
 	  function updateDirections() {
 	    swipeDir = this.getDirection("start");
-	    console.log(swipeDir);
 	  }
+	
+	  $navigationItem.on('click', function (e) {
+	    console.log(e.target.innerText.toLowerCase());
+	  });
 	
 	  $navigationItem.mousedown(function (e) {
 	    activeId = $(this).attr('id').split('_')[1];

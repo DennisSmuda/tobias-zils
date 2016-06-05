@@ -186,6 +186,7 @@ ul.primary {
   -moz-flex-direction: row;
   flex-direction: row;
   -ms-flex-direction: row;
+  cursor: default !important;
   font-size: 2rem; }
   ul.primary li {
     width: 100vw;
@@ -203,9 +204,7 @@ ul.primary {
   ul.primary a {
     text-transform: none; }
 
-ul.secondary {
-  padding: 1rem;
-  list-style-type: none;
+ul.primary li div {
   display: -webkit-box;
   display: -moz-box;
   display: box;
@@ -213,24 +212,38 @@ ul.secondary {
   display: -moz-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -moz-box-orient: horizontal;
-  box-orient: horizontal;
+  -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  box-orient: vertical;
   -webkit-box-direction: normal;
   -moz-box-direction: normal;
   box-direction: normal;
-  -webkit-flex-direction: row;
-  -moz-flex-direction: row;
-  flex-direction: row;
-  -ms-flex-direction: row;
-  font-size: 1.5rem;
-  display: none; }
-  ul.secondary li {
-    padding: 1rem; }
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  flex-direction: column;
+  -ms-flex-direction: column;
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+  box-pack: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -ms-justify-content: center;
+  -o-justify-content: center;
+  justify-content: center;
+  -ms-flex-pack: center;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  box-align: center;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  -o-align-items: center;
+  align-items: center;
+  -ms-flex-align: center; }
 
 ul.primary li .title-image {
-  width: 100%;
-  height: 100%;
+  width: 65%;
+  height: 50%;
   background-size: cover;
   color: white;
   display: -webkit-box;
