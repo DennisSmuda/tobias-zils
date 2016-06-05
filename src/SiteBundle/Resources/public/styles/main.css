@@ -247,12 +247,7 @@ ul.primary {
   ul.primary li div {
     text-decoration: none;
     text-transform: uppercase;
-    text-align: center;
-    -webkit-transition: all 0.3s;
-    -moz-transition: all 0.3s;
-    transition: all 0.3s; }
-    ul.primary li div:hover {
-      transform: scale(1.01); }
+    text-align: center; }
   ul.primary a {
     text-transform: none; }
 
@@ -321,10 +316,7 @@ ul.primary li .title-image {
   -o-align-items: center;
   align-items: center;
   -ms-flex-align: center;
-  border: 10px solid white;
-  box-shadow: 0 0 6px 3px rgba(60, 59, 61, 0.1); }
-  ul.primary li .title-image:hover {
-    box-shadow: 0 0 12px 6px rgba(60, 59, 61, 0.1); }
+  border: 10px solid white; }
 
 ul.primary .filler {
   width: 30vw;

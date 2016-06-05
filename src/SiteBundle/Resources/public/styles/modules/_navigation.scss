@@ -58,11 +58,6 @@ ul.primary {
     text-decoration: none;
     text-transform: uppercase;
     text-align: center;
-    @include transition(all 0.3s);
-
-    &:hover {
-      transform: scale(1.01);
-    }
   }
   
   a {
@@ -96,11 +91,7 @@ ul.primary li .title-image {
   @include align-items(center);
 
   border: 10px solid white;
-  box-shadow: 0 0 6px 3px rgba($coal, 0.1);
 
-  &:hover {
-    box-shadow: 0 0 12px 6px rgba($coal, 0.1);
-  }
 }
 
 
