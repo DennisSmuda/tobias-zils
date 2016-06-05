@@ -17,6 +17,13 @@ $(document).ready(function () {
 
 
 
-  //debug();
+  debug();
 });
 
+
+function debug() {
+
+  Draggable.create("ul.primary", {type:"x", edgeResistance:0.65, bounds:"nav", throwProps:true});
+  //Draggable.create("#landscapes", {type:"x,y", edgeResistance:0.65, bounds:"nav", throwProps:true});
+
+}

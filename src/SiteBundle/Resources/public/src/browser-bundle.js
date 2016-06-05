@@ -80,8 +80,14 @@
 	  gallery.setupTitleImages();
 	  gallery.update(galleryContainer);
 	
-	  //debug();
+	  debug();
 	});
+	
+	function debug() {
+	
+	  Draggable.create("ul.primary", { type: "x", edgeResistance: 0.65, bounds: "nav", throwProps: true });
+	  //Draggable.create("#landscapes", {type:"x,y", edgeResistance:0.65, bounds:"nav", throwProps:true});
+	}
 
 /***/ },
 /* 2 */
@@ -294,7 +300,7 @@
 	        photos.forEach(function (photo, i) {
 	          // Render to dom
 	          var photoUrl = '<img src="http://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_c.jpg">';
-	          $(photoUrl).appendTo('#images');
+	          $(photoUrl).prependTo('#images');
 	        });
 	      });
 	    }
@@ -336,7 +342,7 @@
 	          // Construct DOM Node
 	          var imageSrc = 'http://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_c.jpg';
 	          var titleImage = '<div class="title-image" style="background-image: url(\'' + imageSrc + '\');">' + albumname + '</div>';
-	          $(titleImage).appendTo('ul.primary li a#' + albumname);
+	          $(titleImage).prependTo('ul.primary li div#' + albumname);
 	        });
 	      });
 	    }

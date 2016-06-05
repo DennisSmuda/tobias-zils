@@ -54,13 +54,19 @@ ul.primary {
     padding: 1rem;
   }
   
-  a {
+  li div {
     text-decoration: none;
     text-transform: uppercase;
+    text-align: center;
+    @include transition(all 0.3s);
 
     &:hover {
-      transform: scale(1.05);
+      transform: scale(1.01);
     }
+  }
+  
+  a {
+    text-transform: none;
   }
 }
 
@@ -79,8 +85,8 @@ ul.secondary {
 
 
 ul.primary li .title-image {
-  width : 30vw;
-  height: 50vh;
+  width : 60vw;
+  height: 60vh;
   background-size: cover;
 
   color: white;
@@ -88,4 +94,17 @@ ul.primary li .title-image {
   @include flex-direction(column);
   @include justify-content(center);
   @include align-items(center);
+
+  border: 10px solid white;
+  box-shadow: 0 0 6px 3px rgba($coal, 0.1);
+
+  &:hover {
+    box-shadow: 0 0 12px 6px rgba($coal, 0.1);
+  }
+}
+
+
+ul.primary .filler {
+  width: 30vw;
+  height: 60vh;
 }

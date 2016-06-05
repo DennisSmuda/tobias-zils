@@ -244,11 +244,17 @@ ul.primary {
   font-size: 2rem; }
   ul.primary li {
     padding: 1rem; }
-  ul.primary a {
+  ul.primary li div {
     text-decoration: none;
-    text-transform: uppercase; }
-    ul.primary a:hover {
-      transform: scale(1.05); }
+    text-transform: uppercase;
+    text-align: center;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s; }
+    ul.primary li div:hover {
+      transform: scale(1.01); }
+  ul.primary a {
+    text-transform: none; }
 
 ul.secondary {
   padding: 1rem;
@@ -276,8 +282,8 @@ ul.secondary {
     padding: 1rem; }
 
 ul.primary li .title-image {
-  width: 30vw;
-  height: 50vh;
+  width: 60vw;
+  height: 60vh;
   background-size: cover;
   color: white;
   display: -webkit-box;
@@ -314,7 +320,15 @@ ul.primary li .title-image {
   -ms-align-items: center;
   -o-align-items: center;
   align-items: center;
-  -ms-flex-align: center; }
+  -ms-flex-align: center;
+  border: 10px solid white;
+  box-shadow: 0 0 6px 3px rgba(60, 59, 61, 0.1); }
+  ul.primary li .title-image:hover {
+    box-shadow: 0 0 12px 6px rgba(60, 59, 61, 0.1); }
+
+ul.primary .filler {
+  width: 30vw;
+  height: 60vh; }
 
 svg#hamburger {
   cursor: pointer;

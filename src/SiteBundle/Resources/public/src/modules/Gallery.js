@@ -46,7 +46,7 @@ export default class Gallery {
       photos.forEach((photo, i) => {
         // Render to dom
         let photoUrl = `<img src="http://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_c.jpg">`;
-        $(photoUrl).appendTo('#images');
+        $(photoUrl).prependTo('#images');
       });
     });
   }
@@ -82,7 +82,7 @@ export default class Gallery {
         // Construct DOM Node
         let imageSrc = `http://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_c.jpg`;
         let titleImage = `<div class="title-image" style="background-image: url('${imageSrc}');">${albumname}</div>`;
-        $(titleImage).appendTo(`ul.primary li a#${albumname}`);
+        $(titleImage).prependTo(`ul.primary li div#${albumname}`);
       });
     });
   }
