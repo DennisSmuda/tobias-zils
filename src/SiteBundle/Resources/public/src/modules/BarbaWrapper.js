@@ -46,7 +46,7 @@ export default class BarbaWrapper {
           if (_this.menu.isActive()) {
             _this.menu.toggleMenu();
             _this.gallery.update($el);
-
+console.log('Animate callback');
           }
           _this.done();
         }

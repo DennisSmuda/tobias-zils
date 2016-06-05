@@ -1,2 +1,430 @@
-!function(e){function t(i){if(n[i])return n[i].exports;var a=n[i]={exports:{},id:i,loaded:!1};return e[i].call(a.exports,a,a.exports,t),a.loaded=!0,a.exports}var n={};return t.m=e,t.c=n,t.p="",t(0)}([function(e,t,n){n(1),e.exports=n(5)},function(e,t,n){"use strict";function i(e){return e&&e.__esModule?e:{"default":e}}function a(){Draggable.create("ul.primary",{type:"x",edgeResistance:.65,bounds:"nav",throwProps:!0})}var r=n(2),o=i(r),s=n(3),u=i(s),c=n(4),l=i(c);$(document).ready(function(){var e=$(".barba-container"),t=new o["default"],n=new l["default"];new u["default"](t,n);n.setupTitleImages(),n.update(e),a()})},function(e,t){"use strict";function n(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function i(){l=!l,r.toggleClass("active"),l?TweenMax.to(c,1,{autoAlpha:1,y:0,ease:Expo.easeOut}):TweenMax.to(c,1,{autoAlpha:.1,y:-window.innerHeight,ease:Expo.easeOut}),s.toggleClass("active"),o.toggleClass("active")}Object.defineProperty(t,"__esModule",{value:!0});var a=function(){function e(e,t){for(var n=0;n<t.length;n++){var i=t[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(e,i.key,i)}}return function(t,n,i){return n&&e(t.prototype,n),i&&e(t,i),t}}(),r=$("svg#hamburger #top"),o=$("svg#hamburger #middle"),s=$("svg#hamburger #bottom"),u=$("svg#hamburger"),c=$("nav"),l=!1,f=function(){function e(){n(this,e),u.on("click",this.onClick),$(document).keyup(function(e){27===e.keyCode&&i()})}return a(e,[{key:"onClick",value:function(){i()}},{key:"toggleMenu",value:function(){i()}},{key:"isActive",value:function(){return l}}]),e}();t["default"]=f},function(e,t){"use strict";function n(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}Object.defineProperty(t,"__esModule",{value:!0});var i=function(){function e(e,t){for(var n=0;n<t.length;n++){var i=t[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(e,i.key,i)}}return function(t,n,i){return n&&e(t.prototype,n),i&&e(t,i),t}}(),a=function(){function e(t,i){n(this,e),this.menu=t,this.gallery=i,this.setupTransition()}return i(e,[{key:"setupTransition",value:function(){var e=Barba.BaseTransition.extend({menu:this.menu,gallery:this.gallery,start:function(){Promise.all([this.newContainerLoading,this.fadeOut()]).then(this.fadeIn.bind(this))},fadeOut:function(){return $(this.oldContainer).animate({opacity:0}).promise()},fadeIn:function(){function e(){t.menu.isActive()&&(t.menu.toggleMenu(),t.gallery.update(n)),t.done()}var t=this,n=$(this.newContainer);$(this.oldContainer).hide(),n.css({visibility:"visible",opacity:0}),TweenMax.to(n,.4,{opacity:1,onComplete:e})}});Barba.Pjax.getTransition=function(){return e},Barba.Pjax.start()}}]),e}();t["default"]=a},function(e,t){"use strict";function n(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}Object.defineProperty(t,"__esModule",{value:!0});var i=function(){function e(e,t){for(var n=0;n<t.length;n++){var i=t[n];i.enumerable=i.enumerable||!1,i.configurable=!0,"value"in i&&(i.writable=!0),Object.defineProperty(e,i.key,i)}}return function(t,n,i){return n&&e(t.prototype,n),i&&e(t,i),t}}(),a="1418194638ebca1a4c43c2e3d2795d39",r="24527918@N07",o=["street","landscapes","people"],s={streetId:"72157647569796794",landscapesId:"72157654896797852",peopleId:"72157651326724346"},u=function(){function e(){n(this,e),this.flickr=new Flickr({api_key:a,user_id:r})}return i(e,[{key:"getAlbum",value:function(e){var t=e+"Id",n=s[t];this.flickr.photosets.getPhotos({api_key:this.flickr.flickrOptions.api_key,user_id:this.flickr.flickrOptions.user_id,page:1,per_page:500,extras:["tags"],photoset_id:n},function(e,t){if(e)throw new Error(e);var n=t.photoset.photo;n.forEach(function(e,t){var n='<img src="http://farm'+e.farm+".staticflickr.com/"+e.server+"/"+e.id+"_"+e.secret+'_c.jpg">';$(n).prependTo("#images")})})}},{key:"update",value:function(e){e.hasClass("street")?this.getAlbum("street"):e.hasClass("landscapes")?this.getAlbum("landscapes"):e.hasClass("people")&&this.getAlbum("people")}},{key:"setupTitleImages",value:function(){var e=this;o.forEach(function(t){e.getTitleImage(t)})}},{key:"getTitleImage",value:function(e){this.flickr.photos.search({api_key:this.flickr.flickrOptions.api_key,tags:["tobias-zils-title",""+e],tag_mode:"all"},function(t,n){if(t)throw new Error(t);var i=n.photos.photo;i.forEach(function(t,n){var i="http://farm"+t.farm+".staticflickr.com/"+t.server+"/"+t.id+"_"+t.secret+"_c.jpg",a='<div class="title-image" style="background-image: url(\''+i+"');\">"+e+"</div>";$(a).prependTo("ul.primary li div#"+e)})})}}]),e}();t["default"]=u},function(e,t){}]);
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId])
+/******/ 			return installedModules[moduleId].exports;
+/******/
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			exports: {},
+/******/ 			id: moduleId,
+/******/ 			loaded: false
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.loaded = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(0);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(1);
+	module.exports = __webpack_require__(5);
+
+
+/***/ },
+/* 1 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _Navigation = __webpack_require__(2);
+	
+	var _Navigation2 = _interopRequireDefault(_Navigation);
+	
+	var _BarbaWrapper = __webpack_require__(3);
+	
+	var _BarbaWrapper2 = _interopRequireDefault(_BarbaWrapper);
+	
+	var _Gallery = __webpack_require__(4);
+	
+	var _Gallery2 = _interopRequireDefault(_Gallery);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	$(document).ready(function () {
+	
+	  /**
+	   * Initializes Hamburger + Mainmenu
+	   * with Event Listeners */
+	  var galleryContainer = $('.barba-container');
+	  var navi = new _Navigation2.default();
+	  var gallery = new _Gallery2.default();
+	  var barba = new _BarbaWrapper2.default(navi, gallery);
+	  gallery.setupTitleImages();
+	  gallery.update(galleryContainer);
+	
+	  debug();
+	});
+	var activeId = 0;
+	
+	function debug() {
+	  var easing = Power2.EaseInOut;
+	  var slideSpeed = 0.5;
+	  var itemWidth = $(window).width();
+	  var swipeDir = void 0;
+	  var $navigationItem = $('ul.primary li');
+	  var itemCount = $navigationItem.length;
+	  var $navigationItems = $('ul.primary');
+	
+	  $navigationItems.css({ 'width': itemWidth * itemCount + 'px' });
+	
+	  Draggable.create($navigationItems, {
+	    type: "x",
+	    edgeResistance: 0.9,
+	    dragResistance: 0.0,
+	    bounds: ".nav__inner",
+	    onDrag: updateDirections,
+	    onThrowUpdate: updateDirections,
+	    throwProps: true,
+	    onDragStart: function onDragStart(e) {},
+	    onDragEnd: function onDragEnd() {
+	      if (swipeDir == 'left') {
+	        activeId++;
+	      } else if (swipeDir == 'right') {
+	        activeId--;
+	      };
+	
+	      navigateSlide();
+	    }
+	  });
+	
+	  function navigateSlide() {
+	    if (activeId >= itemCount - 1) activeId = itemCount - 1;
+	    if (activeId < 0) activeId = 0;
+	
+	    var xTarget = activeId * itemWidth * -1;
+	
+	    TweenMax.to($navigationItems, slideSpeed, { x: xTarget, ease: easing, onComplete: slideDone });
+	  }
+	
+	  function slideDone() {
+	    console.log(activeId);
+	  }
+	
+	  function updateDirections() {
+	    swipeDir = this.getDirection("start");
+	    console.log(swipeDir);
+	  }
+	
+	  $navigationItem.mousedown(function (e) {
+	    activeId = $(this).attr('id').split('_')[1];
+	
+	    $(this).removeClass('grab');
+	    $(this).addClass('grabbing');
+	  });
+	
+	  //
+	  $navigationItem.mouseenter(function () {
+	    $(this).removeClass('grabbing');
+	    $(this).addClass('grab');
+	  });
+	
+	  $navigationItem.mouseup(function () {
+	    $(this).removeClass('grabbing');
+	    $(this).addClass('grab');
+	  });
+	
+	  //Draggable.create("#landscapes", {type:"x,y", edgeResistance:0.65, bounds:"nav", throwProps:true});
+	}
+
+/***/ },
+/* 2 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var $topLine = $('svg#hamburger #top');
+	var $middleLine = $('svg#hamburger #middle');
+	var $bottomLine = $('svg#hamburger #bottom');
+	var $svg = $('svg#hamburger');
+	var $nav = $('nav');
+	
+	// Control Variables
+	var isMenuActive = false;
+	
+	var Navigation = function () {
+	  function Navigation() {
+	    _classCallCheck(this, Navigation);
+	
+	    $svg.on('click', this.onClick);
+	    $(document).keyup(function (e) {
+	      if (e.keyCode === 27) _toggleMenu();
+	    });
+	  }
+	
+	  _createClass(Navigation, [{
+	    key: 'onClick',
+	    value: function onClick() {
+	      _toggleMenu();
+	    }
+	  }, {
+	    key: 'toggleMenu',
+	    value: function toggleMenu() {
+	      _toggleMenu();
+	    }
+	  }, {
+	    key: 'isActive',
+	    value: function isActive() {
+	      return isMenuActive;
+	    }
+	  }]);
+	
+	  return Navigation;
+	}();
+	
+	exports.default = Navigation;
+	
+	
+	function _toggleMenu() {
+	  isMenuActive = !isMenuActive;
+	  $topLine.toggleClass('active');
+	
+	  if (isMenuActive) {
+	    TweenMax.to($nav, 1, { autoAlpha: 1, y: 0, ease: Expo.easeOut });
+	  } else {
+	    TweenMax.to($nav, 1, { autoAlpha: 0.1, y: -window.innerHeight, ease: Expo.easeOut });
+	  }
+	  $bottomLine.toggleClass('active');
+	  $middleLine.toggleClass('active');
+	}
+
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var BarbaWrapper = function () {
+	  function BarbaWrapper(menu, gallery) {
+	    _classCallCheck(this, BarbaWrapper);
+	
+	    this.menu = menu;
+	    this.gallery = gallery;
+	    this.setupTransition();
+	  }
+	
+	  _createClass(BarbaWrapper, [{
+	    key: 'setupTransition',
+	    value: function setupTransition() {
+	
+	      var FadeTransition = Barba.BaseTransition.extend({
+	        menu: this.menu,
+	        gallery: this.gallery,
+	
+	        start: function start() {
+	          // As soon the loading is finished and the old page is faded out, let's fade the new page
+	          Promise.all([this.newContainerLoading, this.fadeOut()]).then(this.fadeIn.bind(this));
+	        },
+	
+	        fadeOut: function fadeOut() {
+	          return $(this.oldContainer).animate({ opacity: 0 }).promise();
+	        },
+	
+	        fadeIn: function fadeIn() {
+	          var _this = this;
+	          var $el = $(this.newContainer);
+	
+	          $(this.oldContainer).hide();
+	
+	          $el.css({
+	            visibility: 'visible',
+	            opacity: 0
+	          });
+	
+	          // Tween Max instead of jquery animate
+	          TweenMax.to($el, 0.4, {
+	            opacity: 1,
+	            onComplete: animationCallback
+	          });
+	
+	          function animationCallback() {
+	            if (_this.menu.isActive()) {
+	              _this.menu.toggleMenu();
+	              _this.gallery.update($el);
+	              console.log('Animate callback');
+	            }
+	            _this.done();
+	          }
+	        }
+	      });
+	
+	      Barba.Pjax.getTransition = function () {
+	        return FadeTransition;
+	      };
+	
+	      Barba.Pjax.start();
+	    }
+	  }]);
+	
+	  return BarbaWrapper;
+	}();
+	
+	exports.default = BarbaWrapper;
+
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var apiKey = '1418194638ebca1a4c43c2e3d2795d39';
+	var userId = '24527918@N07';
+	
+	var albumNames = ['street', 'landscapes', 'people'];
+	
+	var albumIds = {
+	  "streetId": '72157647569796794',
+	  "landscapesId": '72157654896797852',
+	  "peopleId": '72157651326724346'
+	};
+	
+	// Image URL
+	// https://farm{farm-id}.staticflickr.com/{server-id}/{id}_{o-secret}_o.(jpg|gif|png)
+	
+	var Gallery = function () {
+	  function Gallery() {
+	    _classCallCheck(this, Gallery);
+	
+	    this.flickr = new Flickr({
+	      api_key: apiKey,
+	      user_id: userId
+	    });
+	  }
+	
+	  _createClass(Gallery, [{
+	    key: 'getAlbum',
+	    value: function getAlbum(albumName) {
+	      var idstring = albumName + 'Id';
+	      var id = albumIds[idstring];
+	
+	      this.flickr.photosets.getPhotos({
+	        api_key: this.flickr.flickrOptions.api_key,
+	        user_id: this.flickr.flickrOptions.user_id,
+	        page: 1,
+	        per_page: 500,
+	        extras: ['tags'],
+	        photoset_id: id
+	
+	      }, function (err, result) {
+	        if (err) {
+	          throw new Error(err);
+	        }
+	
+	        var photos = result.photoset.photo;
+	
+	        photos.forEach(function (photo, i) {
+	          // Render to dom
+	          var photoUrl = '<img src="http://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_c.jpg">';
+	          $(photoUrl).prependTo('#images');
+	        });
+	      });
+	    }
+	  }, {
+	    key: 'update',
+	    value: function update($el) {
+	      if ($el.hasClass('street')) {
+	        this.getAlbum('street');
+	      } else if ($el.hasClass('landscapes')) {
+	        this.getAlbum('landscapes');
+	      } else if ($el.hasClass('people')) {
+	        this.getAlbum('people');
+	      }
+	    }
+	  }, {
+	    key: 'setupTitleImages',
+	    value: function setupTitleImages() {
+	      var _this = this;
+	
+	      albumNames.forEach(function (album) {
+	        _this.getTitleImage(album);
+	      });
+	    }
+	  }, {
+	    key: 'getTitleImage',
+	    value: function getTitleImage(albumname) {
+	      this.flickr.photos.search({
+	        api_key: this.flickr.flickrOptions.api_key,
+	        tags: ['tobias-zils-title', '' + albumname],
+	        tag_mode: 'all'
+	      }, function (err, result) {
+	        if (err) {
+	          throw new Error(err);
+	        }
+	
+	        var titleImages = result.photos.photo;
+	
+	        titleImages.forEach(function (photo, i) {
+	          // Construct DOM Node
+	          var imageSrc = 'http://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_c.jpg';
+	          var titleImage = '<div class="title-image" style="background-image: url(\'' + imageSrc + '\');">' + albumname + '</div>';
+	          $(titleImage).prependTo('nav ul li div#' + albumname);
+	        });
+	      });
+	    }
+	  }]);
+	
+	  return Gallery;
+	}();
+	
+	exports.default = Gallery;
+
+/***/ },
+/* 5 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
+/***/ }
+/******/ ]);
 //# sourceMappingURL=browser-bundle.js.map

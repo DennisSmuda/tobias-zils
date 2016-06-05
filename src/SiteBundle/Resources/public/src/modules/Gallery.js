@@ -82,7 +82,7 @@ export default class Gallery {
         // Construct DOM Node
         let imageSrc = `http://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_c.jpg`;
         let titleImage = `<div class="title-image" style="background-image: url('${imageSrc}');">${albumname}</div>`;
-        $(titleImage).prependTo(`ul.primary li div#${albumname}`);
+        $(titleImage).prependTo(`nav ul li div#${albumname}`);
       });
     });
   }

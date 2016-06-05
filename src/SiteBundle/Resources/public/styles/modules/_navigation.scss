@@ -4,21 +4,17 @@ nav {
   height: 100vh;
   background-color: white;
   //opacity: 0.95;
-  position: fixed;
+  //position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 100;
-  @include display(flex);
-  @include flex-direction(column);
-  @include justify-content(center);
-  @include align-items(center);
 
-  transform: translateY(-100vh);
+  //transform: translateY(-100vh);
 
 
   &.active {
-    top: 0;
+    //top: 0;
   }
 
   a {
@@ -36,6 +32,8 @@ nav {
 }
 
 .nav__inner {
+  width: 100%;
+  height: 100%;
   @include display(flex);
   @include flex-direction(column);
   @include justify-content(center);
@@ -45,16 +43,19 @@ ul.primary {
   list-style-type: none;
   @include display(flex);
   @include flex-direction(row);
-  @include justify-content(center);
-  @include align-items(center);
+
 
   font-size: 2rem;
 
   li {
-    padding: 1rem;
+    width: 100vw;
+    height: 100vh;
+    @include flex-shrink(0);
   }
   
   li div {
+    width: 100%;
+    height: 100%;
     text-decoration: none;
     text-transform: uppercase;
     text-align: center;
@@ -80,8 +81,8 @@ ul.secondary {
 
 
 ul.primary li .title-image {
-  width : 60vw;
-  height: 60vh;
+  width: 100%;
+  height: 100%;
   background-size: cover;
 
   color: white;
