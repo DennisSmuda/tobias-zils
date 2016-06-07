@@ -33,8 +33,10 @@ function toggleMenu() {
 
 
   if (isMenuActive) {
-    TweenMax.to($nav, 1, {autoAlpha: 1, y: 0, ease: Expo.easeOut});
+    TweenMax.to($nav, 1, {autoAlpha: 1, ease: Expo.easeOut});
   } else {
-    TweenMax.to($nav, 1, {autoAlpha: 0.1, y: -window.innerHeight, ease: Expo.easeOut});
+    TweenMax.to($nav, 1, {autoAlpha: 0, onComplete: function() {
+      $nav.css('visibility', 'hidden');
+    }});
   }
 }
