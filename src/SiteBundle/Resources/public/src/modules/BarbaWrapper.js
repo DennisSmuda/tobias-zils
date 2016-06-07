@@ -4,6 +4,16 @@ export default class BarbaWrapper {
     this.menu = menu;
     this.gallery = gallery;
     this.setupTransition();
+    this.setupEvents();
+  }
+
+  setupEvents() {
+    // NAVIGATION on Click
+    $('ul.primary li').on('click', (e) => {
+      let target = e.target.innerText.toLowerCase();
+      Barba.Pjax.goTo(target);
+      this.gallery.update(target);
+    });
   }
 
   setupTransition() {
@@ -46,7 +56,7 @@ export default class BarbaWrapper {
           if (_this.menu.isActive()) {
             _this.menu.toggleMenu();
             _this.gallery.update($el);
-console.log('Animate callback');
+            console.log('Animate callback');
           }
           _this.done();
         }

@@ -15,7 +15,7 @@ $(document).ready(function () {
   gallery.update(galleryContainer);
 
 
-  debug();
+  debug(barba);
 });
 let activeId = 0;
 
@@ -68,9 +68,7 @@ function debug() {
     swipeDir = this.getDirection("start");
   }
 
-  $navigationItem.on('click', (e) => {
-    console.log(e.target.innerText.toLowerCase());
-  });
+
 
   $navigationItem.mousedown(function(e) {
     activeId = $(this).attr('id').split('_')[1];

@@ -25,6 +25,7 @@ export default class Gallery {
   }
 
   getAlbum(albumName) {
+    console.log(albumName);
     let idstring = albumName + 'Id';
     let id = albumIds[idstring];
 
@@ -41,28 +42,34 @@ export default class Gallery {
         throw new Error(err);
       }
 
-      const photos = result.photoset.photo;
+      let photos = result.photoset.photo;
 
       photos.forEach((photo, i) => {
         // Render to dom
         let photoUrl = `<img src="http://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_c.jpg">`;
-        $(photoUrl).prependTo('#images');
+        console.log(albumName);
+        let destination = $(`.${albumName} #images`);
+        $(photoUrl).prependTo(destination);
       });
     });
   }
 
   update($el) {
-    if ($el.hasClass('street')) {
-      this.getAlbum('street')
-    } else if ($el.hasClass('landscapes')) {
-      this.getAlbum('landscapes');
-    } else if ($el.hasClass('people')) {
-      this.getAlbum('people');
+    if (typeof $el === 'string') {
+      this.getAlbum($el);
+    }
+    else if (typeof $el === 'object') {
+      if ($el.hasClass('street')) {
+        this.getAlbum('street')
+      } else if ($el.hasClass('landscapes')) {
+        this.getAlbum('landscapes');
+      } else if ($el.hasClass('people')) {
+        this.getAlbum('people');
+      }
     }
   }
 
   setupTitleImages() {
-
     albumNames.forEach((album) => {
       this.getTitleImage(album);
     })

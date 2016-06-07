@@ -80,7 +80,7 @@
 	  gallery.setupTitleImages();
 	  gallery.update(galleryContainer);
 	
-	  debug();
+	  debug(barba);
 	});
 	var activeId = 0;
 	
@@ -129,10 +129,6 @@
 	  function updateDirections() {
 	    swipeDir = this.getDirection("start");
 	  }
-	
-	  $navigationItem.on('click', function (e) {
-	    console.log(e.target.innerText.toLowerCase());
-	  });
 	
 	  $navigationItem.mousedown(function (e) {
 	    activeId = $(this).attr('id').split('_')[1];
@@ -214,14 +210,14 @@
 	function _toggleMenu() {
 	  isMenuActive = !isMenuActive;
 	  $topLine.toggleClass('active');
+	  $bottomLine.toggleClass('active');
+	  $middleLine.toggleClass('active');
 	
 	  if (isMenuActive) {
 	    TweenMax.to($nav, 1, { autoAlpha: 1, y: 0, ease: Expo.easeOut });
 	  } else {
 	    TweenMax.to($nav, 1, { autoAlpha: 0.1, y: -window.innerHeight, ease: Expo.easeOut });
 	  }
-	  $bottomLine.toggleClass('active');
-	  $middleLine.toggleClass('active');
 	}
 
 /***/ },
@@ -245,9 +241,22 @@
 	    this.menu = menu;
 	    this.gallery = gallery;
 	    this.setupTransition();
+	    this.setupEvents();
 	  }
 	
 	  _createClass(BarbaWrapper, [{
+	    key: 'setupEvents',
+	    value: function setupEvents() {
+	      var _this2 = this;
+	
+	      // NAVIGATION on Click
+	      $('ul.primary li').on('click', function (e) {
+	        var target = e.target.innerText.toLowerCase();
+	        Barba.Pjax.goTo(target);
+	        _this2.gallery.update(target);
+	      });
+	    }
+	  }, {
 	    key: 'setupTransition',
 	    value: function setupTransition() {
 	
@@ -315,6 +324,8 @@
 	  value: true
 	});
 	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -346,6 +357,7 @@
 	  _createClass(Gallery, [{
 	    key: 'getAlbum',
 	    value: function getAlbum(albumName) {
+	      console.log(albumName);
 	      var idstring = albumName + 'Id';
 	      var id = albumIds[idstring];
 	
@@ -367,19 +379,25 @@
 	        photos.forEach(function (photo, i) {
 	          // Render to dom
 	          var photoUrl = '<img src="http://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_c.jpg">';
-	          $(photoUrl).prependTo('#images');
+	          console.log(albumName);
+	          var destination = $('.' + albumName + ' #images');
+	          $(photoUrl).prependTo(destination);
 	        });
 	      });
 	    }
 	  }, {
 	    key: 'update',
 	    value: function update($el) {
-	      if ($el.hasClass('street')) {
-	        this.getAlbum('street');
-	      } else if ($el.hasClass('landscapes')) {
-	        this.getAlbum('landscapes');
-	      } else if ($el.hasClass('people')) {
-	        this.getAlbum('people');
+	      if (typeof $el === 'string') {
+	        this.getAlbum($el);
+	      } else if ((typeof $el === 'undefined' ? 'undefined' : _typeof($el)) === 'object') {
+	        if ($el.hasClass('street')) {
+	          this.getAlbum('street');
+	        } else if ($el.hasClass('landscapes')) {
+	          this.getAlbum('landscapes');
+	        } else if ($el.hasClass('people')) {
+	          this.getAlbum('people');
+	        }
 	      }
 	    }
 	  }, {
