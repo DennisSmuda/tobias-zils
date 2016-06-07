@@ -3,8 +3,9 @@ nav {
   width: 100vw;
   height: 100vh;
   background-color: white;
-  //opacity: 0.95;
-  //position: fixed;
+  opacity: 0.0;
+  visibility: hidden;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
