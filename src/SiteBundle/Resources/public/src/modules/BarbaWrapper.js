@@ -31,7 +31,7 @@ export default class BarbaWrapper {
       },
 
       fadeOut: function() {
-        return $(this.oldContainer).animate({ opacity: 0 }).promise();
+        return $(TweenMax.to($(this.oldContainer), 0.4, {opacity: 0})).promise();
       },
 
       fadeIn: function() {
