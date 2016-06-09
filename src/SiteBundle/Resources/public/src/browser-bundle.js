@@ -182,6 +182,7 @@
 	    $(document).keyup(function (e) {
 	      if (e.keyCode === 27) _toggleMenu();
 	    });
+	    this.lastTitle = '';
 	  }
 	
 	  _createClass(Navigation, [{
@@ -198,6 +199,19 @@
 	    key: 'isActive',
 	    value: function isActive() {
 	      return isMenuActive;
+	    }
+	  }, {
+	    key: 'transition',
+	    value: function transition(title) {
+	      this.lastTitle = title;
+	      var $el = $('#' + title);
+	      TweenMax.fromTo($el, 1.2, { scale: 1 }, { scale: 2.5 });
+	    }
+	  }, {
+	    key: 'reset',
+	    value: function reset() {
+	      var $el = $('#' + this.lastTitle);
+	      TweenMax.to($el, 0.1, { scale: 1, delay: 0.8 });
 	    }
 	  }]);
 	
@@ -237,10 +251,10 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	var BarbaWrapper = function () {
-	  function BarbaWrapper(menu, gallery) {
+	  function BarbaWrapper(navi, gallery) {
 	    _classCallCheck(this, BarbaWrapper);
 	
-	    this.menu = menu;
+	    this.navi = navi;
 	    this.gallery = gallery;
 	    this.setupTransition();
 	    this.setupEvents();
@@ -254,6 +268,7 @@
 	      // NAVIGATION on Click
 	      $('ul.primary li').on('click', function (e) {
 	        var target = e.target.innerText.toLowerCase();
+	        _this2.navi.transition(target);
 	        Barba.Pjax.goTo(target);
 	        _this2.gallery.update(target);
 	      });
@@ -263,7 +278,7 @@
 	    value: function setupTransition() {
 	
 	      var FadeTransition = Barba.BaseTransition.extend({
-	        menu: this.menu,
+	        navi: this.navi,
 	        gallery: this.gallery,
 	
 	        start: function start() {
@@ -293,10 +308,10 @@
 	          });
 	
 	          function animationCallback() {
-	            if (_this.menu.isActive()) {
-	              _this.menu.toggleMenu();
+	            if (_this.navi.isActive()) {
+	              _this.navi.toggleMenu();
 	              _this.gallery.update($el);
-	              console.log('Animate callback');
+	              _this.navi.reset();
 	            }
 	            _this.done();
 	          }
@@ -359,7 +374,6 @@
 	  _createClass(Gallery, [{
 	    key: 'getAlbum',
 	    value: function getAlbum(albumName) {
-	      console.log(albumName);
 	      var idstring = albumName + 'Id';
 	      var id = albumIds[idstring];
 	
@@ -381,27 +395,36 @@
 	        photos.forEach(function (photo, i) {
 	          // Render to dom
 	          var photoUrl = '<img src="http://farm' + photo.farm + '.staticflickr.com/' + photo.server + '/' + photo.id + '_' + photo.secret + '_c.jpg">';
-	          console.log(albumName);
 	          var destination = $('.' + albumName + ' #images');
 	          $(photoUrl).prependTo(destination);
 	        });
 	      });
 	    }
+	
+	    // Update function supports lowercase string of the album name,
+	    // as well as the jQuery object of the albums 'barba-container'
+	
 	  }, {
 	    key: 'update',
 	    value: function update($el) {
+	      // String
 	      if (typeof $el === 'string') {
 	        this.getAlbum($el);
-	      } else if ((typeof $el === 'undefined' ? 'undefined' : _typeof($el)) === 'object') {
-	        if ($el.hasClass('street')) {
-	          this.getAlbum('street');
-	        } else if ($el.hasClass('landscapes')) {
-	          this.getAlbum('landscapes');
-	        } else if ($el.hasClass('people')) {
-	          this.getAlbum('people');
-	        }
 	      }
+	      // jQuery Object
+	      else if ((typeof $el === 'undefined' ? 'undefined' : _typeof($el)) === 'object') {
+	          if ($el.hasClass('street')) {
+	            this.getAlbum('street');
+	          } else if ($el.hasClass('landscapes')) {
+	            this.getAlbum('landscapes');
+	          } else if ($el.hasClass('people')) {
+	            this.getAlbum('people');
+	          }
+	        }
 	    }
+	
+	    // TODO: Need to host navigation images locally..
+	
 	  }, {
 	    key: 'setupTitleImages',
 	    value: function setupTitleImages() {

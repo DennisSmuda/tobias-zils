@@ -1,7 +1,7 @@
 
 export default class BarbaWrapper {
-  constructor(menu, gallery) {
-    this.menu = menu;
+  constructor(navi, gallery) {
+    this.navi = navi;
     this.gallery = gallery;
     this.setupTransition();
     this.setupEvents();
@@ -11,6 +11,7 @@ export default class BarbaWrapper {
     // NAVIGATION on Click
     $('ul.primary li').on('click', (e) => {
       let target = e.target.innerText.toLowerCase();
+      this.navi.transition(target);
       Barba.Pjax.goTo(target);
       this.gallery.update(target);
     });
@@ -19,7 +20,7 @@ export default class BarbaWrapper {
   setupTransition() {
 
     var FadeTransition = Barba.BaseTransition.extend({
-      menu : this.menu,
+      navi : this.navi,
       gallery: this.gallery,
 
       start: function() {
@@ -53,10 +54,10 @@ export default class BarbaWrapper {
 
 
         function animationCallback() {
-          if (_this.menu.isActive()) {
-            _this.menu.toggleMenu();
+          if (_this.navi.isActive()) {
+            _this.navi.toggleMenu();
             _this.gallery.update($el);
-            console.log('Animate callback');
+            _this.navi.reset();
           }
           _this.done();
         }

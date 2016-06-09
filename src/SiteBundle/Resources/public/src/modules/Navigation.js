@@ -16,6 +16,7 @@ export default class Navigation {
     $(document).keyup(function(e) {
       if (e.keyCode === 27) toggleMenu();
     });
+    this.lastTitle = '';
   }
 
   onClick() { toggleMenu(); }
@@ -23,6 +24,17 @@ export default class Navigation {
   toggleMenu() { toggleMenu(); }
 
   isActive() { return isMenuActive; }
+
+  transition(title) {
+    this.lastTitle = title;
+    let $el = $(`#${title}`);
+    TweenMax.fromTo($el, 1.2, { scale: 1}, { scale: 2.5}  )
+  }
+
+  reset() {
+    let $el = $(`#${this.lastTitle}`);
+    TweenMax.to($el, 0.1, { scale: 1, delay: 0.8});
+  }
 }
 
 function toggleMenu() {
@@ -39,4 +51,6 @@ function toggleMenu() {
       $nav.css('visibility', 'hidden');
     }});
   }
+
+
 }

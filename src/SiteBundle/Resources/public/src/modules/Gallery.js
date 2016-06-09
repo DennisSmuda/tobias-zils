@@ -25,7 +25,6 @@ export default class Gallery {
   }
 
   getAlbum(albumName) {
-    console.log(albumName);
     let idstring = albumName + 'Id';
     let id = albumIds[idstring];
 
@@ -47,17 +46,20 @@ export default class Gallery {
       photos.forEach((photo, i) => {
         // Render to dom
         let photoUrl = `<img src="http://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_c.jpg">`;
-        console.log(albumName);
         let destination = $(`.${albumName} #images`);
         $(photoUrl).prependTo(destination);
       });
     });
   }
 
+  // Update function supports lowercase string of the album name,
+  // as well as the jQuery object of the albums 'barba-container'
   update($el) {
+    // String
     if (typeof $el === 'string') {
       this.getAlbum($el);
     }
+    // jQuery Object
     else if (typeof $el === 'object') {
       if ($el.hasClass('street')) {
         this.getAlbum('street')
@@ -69,6 +71,7 @@ export default class Gallery {
     }
   }
 
+  // TODO: Need to host navigation images locally..
   setupTitleImages() {
     albumNames.forEach((album) => {
       this.getTitleImage(album);
@@ -93,7 +96,6 @@ export default class Gallery {
       });
     });
   }
-
 }
 
 
